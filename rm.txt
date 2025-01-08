@@ -1,0 +1,4 @@
+rm c.exe
+rm stringlib.o
+rm userFileLib.o
+rm userlib.o
