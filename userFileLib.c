@@ -72,7 +72,7 @@ int logCurrentUser(char *currUser)
     int successFlag = 0;
 
     fptr = fopen(LOGS, "w");
-    fprintf(fptr, "%s\n", currUser);
+    fprintf(fptr, "%s", currUser);
 
     fptr = fopen(LOGS, "r");
     
@@ -96,6 +96,7 @@ void getCurrentLogged(char *currUser)
     }
 
     fgets(currUser, STR_MIN_LEN, fptr);
+    strftrim(currUser);
     fclose(fptr);
 }
 
@@ -120,24 +121,27 @@ void savePass(char *userPass)
 
 void getUserPassById(char *id, char *password)
 {
-    FILE *fptr;
-    fptr = fopen(PASSWORD_FILE, "r");
+    FILE *fptr = fopen(PASSWORD_FILE, "r");
+    if (fptr == NULL) {
+        perror("Error opening password file");
+        strcpy(password, ""); // Return empty password if file can't be opened
+        return;
+    }
+
     char buff[STR_MIN_LEN];
     char output[STR_MID_LEN][MAX_FILE_LINE];
     char *delimiter = ",";
+    strcpy(password, ""); // Initialize password as empty
 
-    strcpy(output[1], "");
-
-    while (fgets(buff, STR_MIN_LEN, fptr) != NULL)
-    {
-        if(strstr(buff, id) != NULL)
-        {
+    while (fgets(buff, sizeof(buff), fptr) != NULL) {
+        strftrim(buff);
+        if (strstr(buff, id) != NULL) {
             strSplit(buff, output, delimiter);
+            strcpy(password, output[1]); // Copy password from split result
             break;
         }
     }
-
-    strcpy(password, output[1]);
+    fclose(fptr);
 }
 
 int getAllUser(bool isTeacher, char *target, char usersDetails[STR_MAX_LEN][MAX_FILE_LINE])

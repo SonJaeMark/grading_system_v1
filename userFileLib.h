@@ -2,11 +2,11 @@
 
 #include "stringlib.h"
 
-#define PASSWORD_FILE "password_file.txt"
-#define ID_VAL "id_val.txt"
-#define LOGS "curr_user_logs.txt"
-#define TEACHER_FILE "teacher_file.txt"
-#define STUDENT_FILE "student_file.txt"
+#define PASSWORD_FILE "file_password.txt"
+#define ID_VAL "file_id_val.txt"
+#define LOGS "file_curr_user_logs.txt"
+#define TEACHER_FILE "file_teacher.txt"
+#define STUDENT_FILE "file_student.txt"
 
 void strftrim(char *in);
 

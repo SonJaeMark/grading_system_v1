@@ -179,8 +179,8 @@ int registerStudent(Student student, int id, char strArr[STR_MIN_LEN][STR_MID_LE
     strcpy(strArr[1], student.fname);
     strcpy(strArr[2], student.lname);
     strcpy(strArr[3], student.userName);
-    strcpy(strArr[4], student.section);
-    strcpy(strArr[5], dobStr);
+    strcpy(strArr[4], dobStr);
+    strcpy(strArr[5], student.section);
     strcpy(strArr[6], grades);
     strcpy(strArr[7], "");
 
@@ -208,8 +208,13 @@ int registerStudent(Student student, int id, char strArr[STR_MIN_LEN][STR_MID_LE
 int loginUser()
 {
     char id[STR_MIN_LEN];
-    char *password;
+    char password[STR_MIN_LEN];
     char typedPass[STR_MIN_LEN];
+    char userDetails[STR_MIN_LEN];
+    char userDetailsOutput[512][1024];
+    char *delim = ",";
+    char userLogs[STR_MIN_LEN];
+    int successFlag = 0;
 
     while (1)
     {
@@ -217,19 +222,59 @@ int loginUser()
         fgets(id, STR_MIN_LEN, stdin);
         strftrim(id);
 
-        (id, password);
-
         printf("Enter password: ");
         fgets(typedPass, STR_MIN_LEN, stdin);
         strftrim(typedPass);
 
+        getUserPassById(id, password);
+        
         if(strcmp(password, typedPass) == 0) break;
         printf("Password or id is incorrect!\n\n");
     }
-    return 1; 
+
+    if(getTeacherById(id, userDetails) == 1 || getStudentById(id, userDetails) == 1)
+    {
+        strSplit(userDetails, userDetailsOutput, delim);
+        strcpy(userLogs, userDetailsOutput[0]);
+        strcat(userLogs, "-");
+        strcat(userLogs, userDetailsOutput[3]);
+
+        logCurrentUser(userLogs);
+        getCurrentLogged(userLogs);
+        printf("Welocome %s\n", userLogs);
+        successFlag = 1;
+    }
+
+    return successFlag; 
 }
 
 void logout()
 {
+    char userLogs[STR_MIN_LEN];
+    char ans[20];
+    getCurrentLogged(userLogs);
+
+    while (1)
+    {
+        printf("Do you want to logout %s?\n[y]Yes || [n]No: ", userLogs);
+        fgets(ans, sizeof(ans), stdin);
+        strftrim(ans); // Remove newline
+
+        if(strcmp("y", ans) == 0)
+        {
+            strcpy(userLogs, "");
+            logCurrentUser(userLogs);
+            return;
+        }
+        else if(strcmp("n", ans) == 0)
+        {
+            return;
+        }
+        else
+        {
+        printf("Please submit correct response!\n");
+        }
+    }
+    
 
 }

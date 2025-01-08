@@ -349,6 +349,3 @@ void editTeacherTest()
     char *userDetails = "240037,Olly,Kolokoy,omannevilleg@oaic.gov.au,69983 Tony Circle";
     editTeacher(id, userDetails) == 1 ? printf("Edit success!!!\n") : printf("Edit unsuccessful!!!\n");
 }
-
-
-
