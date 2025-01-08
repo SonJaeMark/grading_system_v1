@@ -1,0 +1,2 @@
+id,first_name,last_name,username,section,date_of_birth,grades(MATH,SCI,ENG,FIL,HISTORY,PE,AVE)
+240001,Peter,Parker,Spidey,BSBIO-1,8/10/2001,0,0,0,0,0,0,0

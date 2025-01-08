@@ -55,7 +55,8 @@ int main ()
     // editStudentTest(); // goods no issue
     // editTeacherTest(); // goods no issue
 
-    registerUser();
+    registerUser(); 
+    // loginUser() == 1 ? printf("Welcome user\n") : printf("Please log in\n");
 
     return 0;
 }

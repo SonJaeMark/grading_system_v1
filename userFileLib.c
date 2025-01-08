@@ -123,18 +123,20 @@ void getUserPassById(char *id, char *password)
     FILE *fptr;
     fptr = fopen(PASSWORD_FILE, "r");
     char buff[STR_MIN_LEN];
-    char *output[1024];
+    char output[STR_MID_LEN][MAX_FILE_LINE];
     char *delimiter = ",";
+
+    strcpy(output[1], "");
 
     while (fgets(buff, STR_MIN_LEN, fptr) != NULL)
     {
         if(strstr(buff, id) != NULL)
         {
+            strSplit(buff, output, delimiter);
             break;
         }
     }
 
-    strSplit(buff, output, delimiter);
     strcpy(password, output[1]);
 }
 

@@ -8,13 +8,13 @@
 /// @param output array of char array 
 /// @param delimiter char array that will mark as division
 /// @return number of splitted substring
-int strSplit(char *input, char *output[MAX_FILE_LINE], char *delimiter)
+int strSplit(char *input, char output[STR_MID_LEN][MAX_FILE_LINE], char *delimiter)
 {
     int i = 0;
     char *str = strtok(input, delimiter);
   
     while (str != NULL) {
-        output[i] = str;
+        strcpy(output[i], str);
         str = strtok(NULL, delimiter);
         i++;
     }

@@ -107,6 +107,8 @@ int registerTeacher(Teacher teacher, int id, char strArr[STR_MIN_LEN][STR_MID_LE
         strcat(loggedUser, "-");
         strcat(loggedUser, teacher.userName);
         logCurrentUser(loggedUser);
+
+        printf("Your ID is: %d\n", teacher.id);
     }
 
     return successFlag;
@@ -183,7 +185,7 @@ int registerStudent(Student student, int id, char strArr[STR_MIN_LEN][STR_MID_LE
     strcpy(strArr[7], "");
 
     strToCsvFormat(strArr, delimiter, strInCsvFormat);
-    successFlag = saveTeacher(strInCsvFormat);
+    successFlag = saveStudent(strInCsvFormat);
 
     if(successFlag == 1)
     {
@@ -196,6 +198,8 @@ int registerStudent(Student student, int id, char strArr[STR_MIN_LEN][STR_MID_LE
         strcat(loggedUser, "-");
         strcat(loggedUser, student.userName);
         logCurrentUser(loggedUser);
+
+        printf("Your ID is: %d\n", student.id);
     }
 
     return successFlag;
@@ -203,7 +207,26 @@ int registerStudent(Student student, int id, char strArr[STR_MIN_LEN][STR_MID_LE
 
 int loginUser()
 {
+    char id[STR_MIN_LEN];
+    char *password;
+    char typedPass[STR_MIN_LEN];
 
+    while (1)
+    {
+        printf("Enter ID: ");
+        fgets(id, STR_MIN_LEN, stdin);
+        strftrim(id);
+
+        (id, password);
+
+        printf("Enter password: ");
+        fgets(typedPass, STR_MIN_LEN, stdin);
+        strftrim(typedPass);
+
+        if(strcmp(password, typedPass) == 0) break;
+        printf("Password or id is incorrect!\n\n");
+    }
+    return 1; 
 }
 
 void logout()
