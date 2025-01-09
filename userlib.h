@@ -50,13 +50,12 @@ typedef struct Logs { // to remove
 
 typedef struct StudentList
 {
-    int id;
-    char lname[STR_MIN_LEN];
+    int id[10];
 }StudentList;
 
 int registerUser();
-int registerTeacher(Teacher teacher, int id, char strArr[STR_MIN_LEN][STR_MID_LEN], char *strInCsvFormat, char *idStr);
-int registerStudent(Student student, int id, char strArr[STR_MIN_LEN][STR_MID_LEN], char *strInCsvFormat, char *idStr);
+int registerTeacher(Teacher teacher, int id, char strArr[STR_MID_LEN][MAX_FILE_LINE], char *strInCsvFormat, char *idStr);
+int registerStudent(Student student, int id, char strArr[STR_MID_LEN][MAX_FILE_LINE], char *strInCsvFormat, char *idStr);
 
-int loginUser();
+int loginUser(char *id);
 void logout();

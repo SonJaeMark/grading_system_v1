@@ -1,2 +1,13 @@
 id,first_name,last_name,username,section,date_of_birth,grades(MATH,SCI,ENG,FIL,HISTORY,PE,AVE)
-240001,Peter,Parker,Spidey,BSBIO-1,8/10/2001,0,0,0,0,0,0,0
+240001,Peter,Parker,Spidey,BSBIO-1,8/10/2001,99,99,99,95,99,99,98.333
+240007,Miles,Morales,Miles,BSBIO-2,12/15/2004,99.9,99.9,99.9,99.9,99.9,99.9,99.9
+240008,Peter,Parker,spidey101,12A,2002/08/10,85,90,88,87,89,92,88.5
+240009,Tony,Stark,ironman2000,12B,2000/05/29,95,94,91,93,96,89,93.0
+240010,Steve,Rogers,captain2001,12C,2001/07/04,100,100,100,100,100,100,100.000
+240011,Natasha,Romanoff,blackwidow,12D,2003/11/22,92,91,89,90,93,94,91.5
+240012,Bruce,Banner,hulk2004,12E,2004/03/01,90,94,88,89,92,93,91.0
+240013,Thor,Odinson,thunder2002,12F,2002/12/05,85,87,83,88,86,89,86.3
+240014,Clint,Barton,hawkeye2005,12G,2005/01/15,83,82,84,81,85,86,83.5
+240015,Wanda,Maximoff,scarletwitch,12H,2003/02/28,91,92,90,89,95,94,91.8
+240016,Scott,Lang,antman2001,12I,2001/09/19,80,85,82,83,84,86,83.3
+240017,Carol,Danvers,captainmarvel,12J,2000/10/14,93,94,96,95,92,91,93.5

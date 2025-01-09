@@ -2,3 +2,5 @@ rm c.exe
 rm stringlib.o
 rm userFileLib.o
 rm userlib.o
+rm teacherlib.o 
+rm studentlib.o

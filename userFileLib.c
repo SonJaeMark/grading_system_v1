@@ -198,7 +198,7 @@ int getAllTeacher(char *target, char usersDetails[STR_MAX_LEN][MAX_FILE_LINE])
 
 int getUserById(bool isTeacher, char *id, char *userDetails)
 {
-    char usersDetails[1024][1024];
+    char usersDetails[STR_MAX_LEN][MAX_FILE_LINE];
     int result = getAllUser(isTeacher, id, usersDetails);
 
     strcpy(userDetails, usersDetails[0]);
@@ -208,13 +208,13 @@ int getUserById(bool isTeacher, char *id, char *userDetails)
 int getStudentById(char *id, char *userDetails)
 {
     bool isTeacher = false;
-    getUserById(isTeacher, id, userDetails);
+    return getUserById(isTeacher, id, userDetails);
 }
 
 int getTeacherById(char *id, char *userDetails)
 {
     bool isTeacher = true;
-    getUserById(isTeacher, id, userDetails);
+    return getUserById(isTeacher, id, userDetails);
 }
 
 int saveUsers(bool isTeacher, char usersDetails[STR_MAX_LEN][MAX_FILE_LINE])
@@ -233,7 +233,7 @@ int saveUsers(bool isTeacher, char usersDetails[STR_MAX_LEN][MAX_FILE_LINE])
 
     if(fptr == NULL && isTeacher){
         fptr = fopen(TEACHER_FILE, "w");
-        fprintf(fptr, "id,first_name,last_name,username,date_of_birth,student_list\n"); // TO DO chage to correct file header 
+        fprintf(fptr, "id,first_name,last_name,username,date_of_birth,student_list\n"); 
 
         while (strcmp(usersDetails[i], ""))
         {
@@ -246,7 +246,7 @@ int saveUsers(bool isTeacher, char usersDetails[STR_MAX_LEN][MAX_FILE_LINE])
     else if(fptr == NULL && !isTeacher)
     {
         fptr = fopen(STUDENT_FILE, "w");
-        fprintf(fptr, "id,first_name,last_name,username,section,date_of_birth,grades(MATH,SCI,ENG,FIL,HISTORY,PE,AVE\n)"); // TO DO chage to correct file header 
+        fprintf(fptr, "id,first_name,last_name,username,section,date_of_birth,grades(MATH,SCI,ENG,FIL,HISTORY,PE,AVE\n)"); 
 
         while (strcmp(usersDetails[i], ""))
         {

@@ -11,7 +11,7 @@ int registerUser() {
     char ans[100];
     Student student;
     Teacher teacher;
-    char strArr[STR_MIN_LEN][STR_MID_LEN]; 
+    char strArr[STR_MID_LEN][MAX_FILE_LINE]; 
     char strInCsvFormat[STR_MAX_LEN];
     int id = generateId();
     int successFlag = 0;
@@ -25,12 +25,20 @@ int registerUser() {
 
         if(strcmp("t", ans) == 0) // TEACHER
         { 
-            if(registerTeacher(teacher, id, strArr, strInCsvFormat, idStr) == 1) break;
+            if(registerTeacher(teacher, id, strArr, strInCsvFormat, idStr) == 1)
+            {
+                successFlag = 1;
+                 break;
+            }
             printf("Registration unsuccessful!\n");
         } 
         else if(strcmp("s", ans) == 0) // STUDENT
         { 
-            if(registerStudent(student, id, strArr, strInCsvFormat, idStr) == 1) break;
+            if(registerStudent(student, id, strArr, strInCsvFormat, idStr) == 1)
+            {
+                successFlag = 1;
+                 break;
+            }
             printf("Registration unsuccessful!\n");
         } 
         else 
@@ -42,7 +50,7 @@ int registerUser() {
     return successFlag;
 }
 
-int registerTeacher(Teacher teacher, int id, char strArr[STR_MIN_LEN][STR_MID_LEN], char *strInCsvFormat, char *idStr)
+int registerTeacher(Teacher teacher, int id, char strArr[STR_MID_LEN][MAX_FILE_LINE], char *strInCsvFormat, char *idStr)
 {
     char dobStr[20];
     char retype[STR_MIN_LEN];
@@ -103,10 +111,10 @@ int registerTeacher(Teacher teacher, int id, char strArr[STR_MIN_LEN][STR_MID_LE
         strcat(loggedUser, teacher.password);
         savePass(loggedUser);
 
-        strcpy(loggedUser, idStr);
-        strcat(loggedUser, "-");
-        strcat(loggedUser, teacher.userName);
-        logCurrentUser(loggedUser);
+        // strcpy(loggedUser, idStr);
+        // strcat(loggedUser, "-");
+        // strcat(loggedUser, teacher.userName);
+        // logCurrentUser(loggedUser);
 
         printf("Your ID is: %d\n", teacher.id);
     }
@@ -114,10 +122,10 @@ int registerTeacher(Teacher teacher, int id, char strArr[STR_MIN_LEN][STR_MID_LE
     return successFlag;
 }
 
-int registerStudent(Student student, int id, char strArr[STR_MIN_LEN][STR_MID_LEN], char *strInCsvFormat, char *idStr)
+int registerStudent(Student student, int id, char strArr[STR_MID_LEN][MAX_FILE_LINE], char *strInCsvFormat, char *idStr)
 {
     char dobStr[20];
-    char grades[20];
+    char grades[STR_MAX_LEN];
     char retype[STR_MIN_LEN];
     char *delimiter = ","; 
     student.id = id;
@@ -169,7 +177,7 @@ int registerStudent(Student student, int id, char strArr[STR_MIN_LEN][STR_MID_LE
 
     snprintf(idStr, sizeof(idStr), "%d", student.id);
     snprintf(dobStr, sizeof(dobStr), "%d/%d/%d", student.dateOfBirth.MM, student.dateOfBirth.DD, student.dateOfBirth.YYYY);
-    snprintf(grades, sizeof(grades), "%d,%d,%d,%d,%d,%d,%d", 
+    snprintf(grades, sizeof(grades), "%f,%f,%f,%f,%f,%f,%f", 
         student.grades.MATH, student.grades.SCI, student.grades.ENG, 
         student.grades.FIL, student.grades.HISTORY, student.grades.PE,
         student.grades.AVE
@@ -194,10 +202,10 @@ int registerStudent(Student student, int id, char strArr[STR_MIN_LEN][STR_MID_LE
         strcat(loggedUser, student.password);
         savePass(loggedUser);
 
-        strcpy(loggedUser, idStr);
-        strcat(loggedUser, "-");
-        strcat(loggedUser, student.userName);
-        logCurrentUser(loggedUser);
+        // strcpy(loggedUser, idStr);
+        // strcat(loggedUser, "-");
+        // strcat(loggedUser, student.userName);
+        // logCurrentUser(loggedUser);
 
         printf("Your ID is: %d\n", student.id);
     }
@@ -205,13 +213,15 @@ int registerStudent(Student student, int id, char strArr[STR_MIN_LEN][STR_MID_LE
     return successFlag;
 }
 
-int loginUser()
+/// @brief login user 
+/// @return 1 if teacher 2 if student 0 if failed
+int loginUser(char *id)
 {
-    char id[STR_MIN_LEN];
+    // char id[STR_MIN_LEN];
     char password[STR_MIN_LEN];
     char typedPass[STR_MIN_LEN];
     char userDetails[STR_MIN_LEN];
-    char userDetailsOutput[512][1024];
+    char userDetailsOutput[STR_MID_LEN][MAX_FILE_LINE];
     char *delim = ",";
     char userLogs[STR_MIN_LEN];
     int successFlag = 0;
@@ -232,7 +242,9 @@ int loginUser()
         printf("Password or id is incorrect!\n\n");
     }
 
-    if(getTeacherById(id, userDetails) == 1 || getStudentById(id, userDetails) == 1)
+    if(getTeacherById(id, userDetails) == 1) successFlag = 1;
+    if(getStudentById(id, userDetails) == 1) successFlag = 2;
+    if(successFlag > 0)
     {
         strSplit(userDetails, userDetailsOutput, delim);
         strcpy(userLogs, userDetailsOutput[0]);
@@ -241,7 +253,7 @@ int loginUser()
 
         logCurrentUser(userLogs);
         getCurrentLogged(userLogs);
-        printf("Welocome %s\n", userLogs);
+        printf("Welcome %s\n", userLogs);
         successFlag = 1;
     }
 
